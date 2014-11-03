@@ -127,7 +127,7 @@ geneLabels.insert(0,'sample')
 for i in range(len(rowLabels)):
     outputList.append(dict(zip(geneLabels,[rowLabels[i]]+list(folds[i,:]))))
 
-outFileName = os.path.splitext(fileName)[0] + '.out.csv'
+outFileName = os.path.splitext(fileName)[0] + '.out.tsv'
 
 with open(outFileName, 'w',newline='') as outfile:
     writer = csv.DictWriter(outfile, geneLabels, dialect="excel-tab")
