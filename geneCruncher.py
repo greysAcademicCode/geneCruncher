@@ -103,11 +103,11 @@ folds = numpy.empty((nSamples*len(refs),geneData.shape[1]))
 
 rowLabels = list()
 # do the analysis
-for isam in range(nSamples):
-    sampleOffset = isam*2*REPEATS
-    sampleLabel = sampleLabels[sampleOffset+2]
-    for iref in range(len(refs)):
-        refLabel = refs[iref]['label']
+for iref in range(len(refs)):
+    refLabel = refs[iref]['label']
+    for isam in range(nSamples):
+        sampleOffset = isam*2*REPEATS
+        sampleLabel = sampleLabels[sampleOffset+2]
         rowLabels.append(sampleLabel + ' vs ' + refLabel) 
         for igene in range(geneData.shape[1]):
             geneControlMean = numpy.mean(geneData[sampleOffset:sampleOffset+REPEATS,igene])
@@ -118,7 +118,7 @@ for isam in range(nSamples):
             dCT_Cont = geneControlMean - refControlMean
             ddCT = dCT_Sam - dCT_Cont
             fold = 2**-ddCT
-            folds[isam*len(refs)+iref,igene] = fold
+            folds[iref*nSamples+isam,igene] = fold
 
 
 outputList = list()
